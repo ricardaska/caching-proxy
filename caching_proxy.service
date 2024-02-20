@@ -1,0 +1,10 @@
+[Unit]
+Description=Caching Proxy
+
+[Service]
+ExecStart=/usr/bin/caching_proxy -config /etc/caching_proxy/config.toml
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
