@@ -39,7 +39,9 @@ func (cache *Cache[T]) Store(key string, value T) {
 	object := &CacheObject[T]{
 		expiresAt: cache.ttl + now,
 		data:      value,
+		loaded:    true,
 	}
+
 	cache.data[key] = object
 }
 
@@ -92,6 +94,8 @@ func (cache *Cache[T]) Load(key string, loadData DataLoader[T]) T {
 		cache.Unlock()
 
 		object.data = loadData()
+		object.loaded = true
+
 		return object.data
 	}
 
